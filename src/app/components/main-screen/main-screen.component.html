@@ -1,0 +1,57 @@
+<div class="d-flex" style=" max-width: 500px;">
+
+    <mat-card @resize>
+
+        <mat-card-header>
+            <mat-card-title>Language Identification and Translation</mat-card-title>
+            <mat-card-subtitle>Identify the language of a text and translate it to another language</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content class="d-flex flex-column">
+
+            <mat-form-field appearance="standard">
+                <mat-label>Text</mat-label>
+                <textarea class="scrollable-container" matInput [(ngModel)]="request.text" placeholder="Write text here"
+                    required #text="ngModel"></textarea>
+                <mat-error *ngIf="text.invalid">Please enter text to continue.</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="standard">
+                <mat-label>Choose a Language</mat-label>
+                <mat-select [(ngModel)]="request.target_lang" class="scrollable-container">
+                    <mat-option *ngFor="let language of languages" [value]="language.code">
+                        {{ language.name }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </mat-card-content>
+
+        <mat-card-actions>
+            <div class="d-flex gap-1 w-100">
+                <button mat-raised-button color="primary" (click)="onIdentify()" class="w-100">Identify</button>
+                <button mat-raised-button color="accent" (click)="onTranslate()" class="w-100"
+                    [disabled]="!request.target_lang || !request.text">Translate</button>
+            </div>
+        </mat-card-actions>
+
+        <div *ngIf="isLoading" class="progress-bar-overlay">
+            <mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+        </div>
+
+        <div *ngIf="translatedText" class="card bg-dark border-0" [@resize]>
+
+            <div class="card-header bg-grey text-grey">Translation</div>
+
+            <div class="card-content p-2 scrollable-container">
+
+                <app-typing [text]="translatedText" [speed]="20"></app-typing>
+
+            </div>
+
+        </div>
+    </mat-card>
+
+
+</div>

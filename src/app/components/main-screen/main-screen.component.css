@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+.bg-grey {
+    background-color: #555555;
+}
+
+.text-grey {
+    color: #CCCCCC;
+}
+
+.card-content {
+    max-height: 300px;
+    overflow-y: auto;
+}
